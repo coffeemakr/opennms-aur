@@ -1,6 +1,6 @@
 # Maintainer: Your Name <youremail@domain.com>
 pkgname="jicmp6"
-pkgver="2.0.1"
+pkgver="2.0.1_1"
 pkgrel=1
 pkgdesc="something"
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ backup=()
 options=()
 install=
 changelog=
-source=($pkgname-$pkgver::git+https://github.com/OpenNMS/jicmp6.git#tag=jicmp6-2.0.1-1)
+source=($pkgname-$pkgver::git+https://github.com/OpenNMS/$pkgname.git#tag=$pkgname-${pkgver//_/-})
 noextract=()
 md5sums=('SKIP')
 
