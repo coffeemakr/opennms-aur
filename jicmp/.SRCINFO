@@ -1,0 +1,15 @@
+pkgbase = jicmp
+	pkgdesc = something
+	pkgver = 2.0.1_1
+	pkgrel = 1
+	arch = i686
+	arch = x86_64
+	license = GPL
+	makedepends = jdk8-openjdk
+	makedepends = autoconf
+	depends = jre8-openjdk-headless
+	source = jicmp-2.0.1_1::git+https://github.com/OpenNMS/jicmp.git#tag=jicmp-2.0.1-1
+	md5sums = SKIP
+
+pkgname = jicmp
+

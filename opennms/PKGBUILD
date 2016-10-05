@@ -1,14 +1,14 @@
 # Maintainer: Your Name <youremail@domain.com>
 pkgname="opennms"
-pkgver="18.0.0_1"
+pkgver="18.0.2_1"
 pkgrel=1
 pkgdesc="something"
 arch=('i686' 'x86_64')
 url=""
 license=('GPL')
 groups=()
-depends=('jdk8-openjdk')
-makedepends=('autoconf')
+depends=('jre8-openjdk' 'jicmp' 'jicmp6')
+makedepends=('jdk8-openjdk' 'perl')
 optdepends=()
 provides=()
 conflicts=()
@@ -21,12 +21,20 @@ source=(https://github.com/OpenNMS/opennms/archive/opennms-${pkgver//_/-}.tar.gz
 noextract=()
 md5sums=('98a4334559c1b31313cfcd3c8d79c9e1')
 sha512sums=('ccccb9278448f590abb9f6915d756e59f8ebe714bd76a9231f5495c547593740d7c1abd21080f791a5b24e87a890d29852e3621005db59a05e101ac2525b2368')
+
+prepare() {
+	mv "$pkgname-$pkgname-${pkgver//_/-}" "$pkgname-$pkgver"
+}
+
 build() {
-	cd "$pkgname-$pkgname-${pkgver//_/-}"
-	./build.pl
+	unset _JAVA_OPTIONS
+	cd "$pkgname-$pkgver"
+	./compile.pl --with-java=/usr/lib/jvm/java-8-openjdk -m "-Dmaven.test.skip=true"
+	./assemble.pl -Dopennms.home=/opt/opennms
 }
 
 package() {
-	cd "$pkgname-$pkgname-${pkgver//_/-}"
-	make DESTDIR="$pkgdir/" install
+	tar xvf $pkgname-  C "$pkgdir/opt/opennms" 
+	cd "pkgname-$pkgname-${pkgver//_/-}"
+	
 }
