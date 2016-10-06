@@ -19,17 +19,20 @@ install=
 changelog=
 source=(https://github.com/OpenNMS/opennms/archive/opennms-${pkgver//_/-}.tar.gz)
 noextract=()
-md5sums=('98a4334559c1b31313cfcd3c8d79c9e1')
-sha512sums=('ccccb9278448f590abb9f6915d756e59f8ebe714bd76a9231f5495c547593740d7c1abd21080f791a5b24e87a890d29852e3621005db59a05e101ac2525b2368')
+md5sums=('c984769c32b713ece7c24181a896bae7')
+sha512sums=('ceccaa660bfb8e1e4f0f1e4159c8e3b7c1db2a8ff5220707b71f7b94fa5f5577ed9e1208d7cc33ba3afd9c66c8f8985721d03c5b6bf2ccc735eac9253d5b04ff')
 
 prepare() {
+	[ -e "$pkgname-$pkgver" ] &&  rm -rf "$pkgname-$pkgver"
 	mv "$pkgname-$pkgname-${pkgver//_/-}" "$pkgname-$pkgver"
 }
 
 build() {
 	unset _JAVA_OPTIONS
+	export JAVA_VENDOR="openjdk"
+	export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 	cd "$pkgname-$pkgver"
-	./compile.pl --with-java=/usr/lib/jvm/java-8-openjdk -m "-Dmaven.test.skip=true"
+	nice ./compile.pl -j "$JAVA_HOME" -m "-Dmaven.test.skip=true" --projects :org.opennms.core.build --also-make install 
 	./assemble.pl -Dopennms.home=/opt/opennms
 }
 
