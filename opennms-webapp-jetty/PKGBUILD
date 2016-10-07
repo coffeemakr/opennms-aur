@@ -1,0 +1,13 @@
+pkgname="opennms-webapp-jetty"
+pkgver="18.0.2_1"
+pkgrel=1
+arch=('any')
+source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
+sha512sums=('8125edbcbf0ea13af2ff47fab81383f41cd229efcf2350e6b99eb690bbfc62c0a6f33a4ef801318e48c525c903b99177a833e1f384c6de9164493f73dd255556')
+
+
+package() {
+  tar -C $pkgdir -xvf data.tar.xz
+  rm $pkgdir/usr/share/opennms/jetty-webapps/opennms/source/*.tar.gz
+  rm -fr $pkgdir/usr/share/doc $pkgdir/usr/share/lintian
+}

@@ -1,7 +1,7 @@
 # Maintainer: Your Name <youremail@domain.com>
 pkgname="opennms"
-pkgver="18.0.1_1"
-pkgrel=3
+pkgver="18.0.2_1"
+pkgrel=4
 pkgdesc="something"
 arch=('any')
 url=""
@@ -9,7 +9,12 @@ license=('GPL')
 groups=()
 depends=('jre8-openjdk' 'jicmp' 'jicmp6')
 makedepends=('jdk8-openjdk' 'perl')
-optdepends=()
+optdepends=('opennms-webapp-jetty: Webinterface'
+						'opennms-plugin-provisioning-dns: DNS provisioning'
+						'opennms-plugin-provisioning-rancid: Rancid provisioning'
+						'opennms-plugin-provisioning-snmp-asset: SNMP Asset provisioning'
+						'opennms-plugin-provisioning-snmp-hardware-inventory: SNMP Hardware inventory'
+						'opennms-remote-poller: Remote poller support')
 provides=()
 conflicts=()
 replaces=()
@@ -31,70 +36,52 @@ source=(
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-protocol-radius_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-protocol-xml_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-protocol-xmp_${pkgver//_/-}_all.deb"
-	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-provisioning-dns_${pkgver//_/-}_all.deb"
-	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-provisioning-rancid_${pkgver//_/-}_all.deb"
-	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-provisioning-snmp-asset_${pkgver//_/-}_all.deb"
-	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-provisioning-snmp-hardware-inventory_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-ticketer-jira_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-ticketer-otrs_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugin-ticketer-rt_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-plugins_${pkgver//_/-}_all.deb"
-	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-remote-poller_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-server_${pkgver//_/-}_all.deb"
-	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms-webapp-jetty_${pkgver//_/-}_all.deb"
 	"http://debian.opennms.org/dists/opennms-18/main/binary-all/opennms_${pkgver//_/-}_all.deb"
 )
 noextract=(*.deb)
-md5sums=('f3b18c9fadb0b4231a6e1725410d691e'
-         '1ae85985f7743f898adabb94d8813611'
-         'f2741502a24263d14e7ae62be321f989'
-         '3db5b1287f20d0eaea9589edb2fe1077'
-         '7e44e6776346c72279c32e73fba0c58a'
-         '06c3f48ae8befb46ac5c59b46256fffa'
-         '0c1a64e19466940afd88d12326213fc9'
-         'b5cfa12d1accbb17bd634ba5d56915eb'
-         'ffb69d3415da1a43feb7395768376a65'
-         '8693b9d8b0de1c31bd1b148b745d8b6a'
-         '4147332378fc72a74e1f3d715088388d'
-         '987d9b65831c7b5a4269e81f3961b503'
-         'c951cf4b4d4d03b05ec7da07af7b3c00'
-         '4156387a35a17f84136e66524675f614'
-         '95af7a06ad919c64d166673dd48a4cb0'
-         'e101402e70a5ad12702ec66569d0ddfc'
-         'c2fbf912a2995566e3fefdce9e1c96e4'
-         '16903689d6fcc7588e181471e88f6380'
-         '13f50952d4ebc5182a65259ed4634821'
-         '1951c088c516da045549e50e03577c6c'
-         'aca70b380c99d1cd92de7734db760361'
-         'f7d1124eda29d189b0353354ff4ca9a2'
-         '626784bc59e9e5b28a860e6d217f411b'
-         '25d69c88b5fd1ef833eb880e11e34d3d'
-         '49619ea43792764e2166a62fa13416c0')
-sha512sums=('68d0261cb83a21a62fbd246fb0b1b05431f31e420e2893d61251bb72e87f6f8705128d471ab40c42e662fda860db4cdf2070f5886590fe8e2fbff8d337cb8945'
-            '9bfd8928a395287412e67969b4887fefe4385213ee590fd1c91b5276c56e6d54f949c2fc0259c28246fc9a870a3823e847c0879fdc311df62eb51f6f0a0dde90'
-            '4bf1a20cd614b182d618c73c9f43fe2a3c438a00681d25c0c4f284bde8478bd910e82fa3815118ae37a333259e3fd72ed880bc62380e185f3cecc5a1ebe145eb'
-            'f7646f114d11d88dac1c7b25568d93fdfbda586bf35ec49b746765b97113b8e0fc9dbbcbdce7b33e4507416965965bce51c2b5cfd452df0a523ebf69b8bfad06'
-            '4724fc0c86d98b01cb272159c602abd0eb6a80c9356da9c97525224a2652f3126b59d747cfdf6ef72c3e769e2d3400609e99a361fa366c38eeadeb004cd5f6bc'
-            'ead3e75e55488b18f6831b70dcd226f25dbb925724b07d8ae21381ca01e4e279d96da427a99ec3d4cfd513f35b53dd89faa3d4a22d1de9836d1d20a681151578'
-            '0de0abbf334c12aaf32c4dea662c9fe693617f7da4a4574cdcc066c61888d24e12a2a8da4ea0d424aeb6ea5c9862dbabd0125898739a841c8b522069a14631cf'
-            '1207299ab907057434cb8f38c14eca75f4fe5d8a00b9d65425ee1bc5e6246e17c2d49da1c982493c543c8b3022ad13a40548cb08c9ce841965b75d633c1f6c1b'
-            'e2f8591d784fbcf141dcb945d031f28f9d4ec751b28658b0fa81d020fd46e9567b2a24c3019445491468304fdac3b2f010a1980a87a8bbad99b0833aaddecd08'
-            'd29e62ddb5323dca8d29bd811dbbd8c061b4bb9819c28a81487edf3e1005115654ba35156b9179dccef2bc90a7dca7b74e962146949d1bb14e07cd0100e57136'
-            'd786aebd7df78ee8989b31d47071e5cf34785afb99943bbdc726a772b86831db1585a513f3a190695aad0183bb83f47d77925f53ce5deb78e1022f04e24d0f5b'
-            'c3100cc8be98b8b723ca504c445a46079587e66f30f7db016afa464f8be60a2e9b6fe73692eed0e73f6344c0c85d046e4181974a660e02dc81676535819cfce4'
-            '0aad58f7b2b7af2035b45abb5e4874ec933234f270820e658f036721116b6158d63eef60cc7afe3672b9c1f5ac3ca98e017aa8bed8fccc78ec9b9a48afc31f70'
-            'bb16608f560d85c61641828a479e4c0ffc62bcc3584e6672b728cfbea08d1be35427a15dc3c0893648e826ef1fdcf0b097831cf00fd404925713069e977cc0b0'
-            '3fad00af04813edefde6111b67ff4961a4f2a5448ab3b2fd15364dd3e9300daedb238869695445acb406db84e21d5a56035db7557f356899e5bae002db1d8360'
-            '1de6d587b9dffc00dc89a005db5746c29a3b32734333c6cd9d139e479db3ae5cdbbca8d538645d5778dbbb9e019bc928a909bccb5c9affa9aa079cfa407b95a0'
-            'd5898d1d0e2d91132a99f6f6e13494ffc0130122dfcdc030b81f662378d72591b8a325b2da9fabda36fd3f877d08f058d27c752fb47f1ef3fb03b83779d91e31'
-            'a5bf2660027ef672b8be328d6b52326c989561dcdb405d6222c7b80fef2832ef54aa28b7c558733fb75532bd3d88d768d7b0e0ecf998cacc1b927f67b26f620a'
-            '142036150027eee90b1ac41544117277986860a3649b64b3ced1cd445804311d0db87d08762f7daf0b7a7cc6ace0255201969741573e81ec96e6ec6617fde9c2'
-            '8bc150b3cc9aeef48d68bdcfbb983e23bcc8f57d18fd372248023582215ad7ca6c9fd7d9b139a809ba82aa979ac22f3356d8705312f08405787945f602f57014'
-            '80a9b0d022296f8a6efb28c4284de1e3c30fc7a9a710391445595b1db5109df4f83fd73da5ead38b254d814aa837c79dcfae3eddbe50ebe173ecd4475ee67858'
-            'a1fc7f4f9f4c554723a3185a4a35bb65457e454b3ab673a8a8089f8375f9c427c3f002e9fd5396d81957e47ceabeeb8caf42c4df439dea4ff222d9a065eebf0a'
-            'bd872eea27fa6e46a3aaf7cc6cc32b259dbea9bb2bdf61ae792510b67591ecd40440be069dca74d8f6bc07ebd43997ec8b44efc5cd9f5cfd942cd43922331671'
-            '179e62eda07886d3c4b287524267b06250626493a0a096d2f88d288d91b82d5ef354b2af9ff57d733667f76e2b6c8144f5d5b0074a3007a707b69394b6c49162'
-            'f6f8877853aef2d77a06c825b1ad5227e9a0ef740d5007f09ecadbcf83c0daa889ea07d1fec0ac458df60794f8996447010b621976e5053dbc5b185dd9101219')
+md5sums=('12236d934bd7f75067bd8e713d931ea7'
+         '797cb8e0faebe22a61e2c8c8a78f3801'
+         'b8e90c9d0ef51d9e29df72f0406f8fbb'
+         'b3b2ceff6bf5da63c1c3ab765d15a836'
+         '0e20cc6ac58fb8b1d00b50f8e1a39620'
+         'c4a32cf44688d46a7ed1a08e7baefc0a'
+         '24e3ff1efdbeda3db98e66b8b3e64717'
+         '850877cac326c318867d7aed89d36a9b'
+         '06109f61b03bcb91a23477af04b7384b'
+         '1aae5e23b712266d8026cb2afb1aba0d'
+         '49371990ff4f03090cf479658627b30f'
+         'ef6a058a9982bdacdf76a7fb20f8ec0f'
+         '95d24e018dcb2835b75036d72f543fe7'
+         '54f9768766c3533c2db31d6910aecff9'
+         '9932d8f3f14c5aee59f9c43d1c181bda'
+         '58c8b2f785aa30dcc33f368e56f5dac9'
+         'a537a0f8062d3e7768b3c81f066fe186'
+         'dd78a966b3323343cc105c4d6840f4c0'
+         '090b8729b4140b2d91065485f261b645')
+sha512sums=('44c01e805d2ff73929c0c06c65fce98ed16fe49354b67fbada22ce989934f7bb65f031cf89e36898cc0bb3045ced15a6c8eef1453fab186edcbe9b976740ff5f'
+            'd2dcef3126c965d20e644a4294696ee57e39d8dbc542ce3ceaad131f10a8022f0b2ca51d88d7677b1ae7ce43dfc00554e0082e42603c11886b2dc225f6e76333'
+            '300d37a9c00e14da7730c5fd2f65969565d82dac6996e202e2cacbbcfc0fc91b8cdd16b41473127beaccc00ef6290180e671483d856bce0e6e03f9c49ccf1231'
+            '7ce5c97f8ac8e971b050b7523539a481006dfd128c346de4e3ac641f0c4999d1a9652869fcd150b3c6a68e2b7a8110c0de0d87e0aea570298f2788c3600ff51d'
+            '09970f567f7145beecab1d115f707e79d52bca04c9ce236c4b5321783d3213323cf13535b4d8b5ade13d63b275a3944547eddc99df34ea5e1691ccdbe30f42ba'
+            'f58308e72a6ae84546133a3e57f3b84c6874ef2d70e19aef0e40789dab4bdf0cceac39557876a437cac5fe4fce0b98000da9aaefabe5649a2e8b0f84eb8af6eb'
+            '8807108e4237553afc31d39a034a558facec5d26e9f4f0952bfc03e9a804422732126f4d61f5a336ebe51a387ef212d62931f05fdca5646c7af51e4819563a26'
+            'da725345bdcaadd9a2675d2db1e907c17be5529435a47f5d4a13a94ad906c7a70691ba145fc5b8ddd7f36f026166c26354445b83c9f1d42fdf7c2c4eab4c27de'
+            '2f7595571f6c13ccbdfc4e9be9d4c2b57db716e0719977ee5ab89882e7094f99c9614520ea16143a23f65f7471ba27f9c9f5770b2ac8f0a7014076b3085661b6'
+            '770483b1a73a55e5812f804aca2c0af78887a55b03669b94ec38253c5385e0a45fa4eff48ba7843d702d13ef7d740e870d9e1bfbe9dacfa83676b61f7331b4ab'
+            '1154c3ee5d5746b340af10605f2088ec4b54c483b73d65c513c8585d9d6594d2087dfe8c529b49bbed871e4bf2eb99c08040d7323d2176684537a9f16c534763'
+            '4a80256b467507db670e3270f7db333ca2531f5e1ef8cbe375e68f2f8abf3df3ff66fe59140c1d0ca6abb054c4640de3e4579881fea9c79f5cc950c35e891567'
+            'daef928ff029b9bc2e50c8c158be1fe65f9c7e082d85154e58b6372e5630df370fef3793e990bea6cebc7e66ed9c4d8db77a4d1af3249b0914c5ecdea07229d3'
+            '28a5a368f7cf8029bb5a6e401ddcc74fea95c99254e6f055afe27fea1cd11d0b4fc3773435dd66ffc5c1ab1203fcf65e8d20f43daf82f2d99246a9b1f321dcf9'
+            '00cfa75adf7211cfaf2703ddf0354471718cb144602d30369e040915421e24a6c94037b21e457dc28c6873604ca16756966cc9111075002aa45791ab7149633c'
+            '2d12e95799ff6fd34454d2ce22a6e800b97e24cb7cc40ae7754652c43dc19c307d9a1c4851b6d81639f318d957a800d9911e51dfa5a7c2dc594ba7c19858ce75'
+            'deab3f65059968671d2ac1ced5f10ba869058b67b979ce210246697f009bcd686e0925a545f25d02ca11e86b1327524f9afed8ba62fface72cfb22cbe1340d6d'
+            '593005198135a53afbf200e9cfa9b2d70d305b5c04aac14d6b1e3910f584b068796953df9fae1906557f9c60781fe6fa09619bf2365f9c36c93e52a802016229'
+            '160a081f2a8884cc60bc216ab24366cd23bcd9eb90f4d81b1d31be1dfd584341cd65f978b7738b2d005ba40533cb3cdaa88934fbf4a90da71cd6b0448e0af320')
 
 
 
@@ -116,40 +103,41 @@ build() {
 
 install_deb_data() {
 	for file in $*; do
-		echo $file
+		echo "Installing files from $file"
 		dir="${file//.deb/}"
 		if [ ! -d "$dir" ]; then
 			unpack_deb "$file"
 		fi
 		data_tar="$(pwd)/$dir/data.tar.xz"
-		pushd $pkgdir
-		tar xvf $data_tar
-		popd
+		tar -C $pkgdir -xf $data_tar
 	done
 }
+
 
 package() {
 		install_deb_data *.deb
 		mv $pkgdir/usr/sbin/* $pkgdir/usr/bin/
 		rmdir $pkgdir/usr/sbin
-		rm -r $pkgdir/etc/init.d
+		#rm -r $pkgdir/etc/init.d
 		find $pkgdir/usr/share/java/opennms -maxdepth 1 -type d -empty -delete
 		(grep -v ^JAVA_HOME /etc/default/opennms || : ; echo "JAVA_HOME='$JAVA_HOME'")
 		mv $pkgdir/usr/share/java/opennms/* $pkgdir/usr/share/opennms/lib/
 		rmdir $pkgdir/usr/share/java/opennms
 
 		mkdir -p $pkgdir/usr/lib/systemd/system
-		cat >$pkgdir/usr/lib/systemd/system/opennms.service << EOF
-		[Unit]
-		Description=OpenNMS Server
-		Requires=network.target
-
-
-		[Service]
-		Type=forking
-		ExecStart="JAVA_HOME=/usr/lib/jvm/default-runtime /usr/bin/opennms start"
-		PIDFile=/var/run/opennms.pid
-EOF
+		mv  $pkgdir/etc/opennms/opennms.service $pkgdir/usr/lib/systemd/system/
+		
+#		cat >$pkgdir/usr/lib/systemd/system/opennms.service << EOF
+#		[Unit]
+#		Description=OpenNMS Server
+#		Requires=network.target
+#
+#
+#		[Service]
+#		Type=forking
+#		ExecStart="JAVA_HOME=/usr/lib/jvm/default-runtime /usr/bin/opennms start"
+#		PIDFile=/var/run/opennms.pid
+#EOF
 }
 
 post_install() {

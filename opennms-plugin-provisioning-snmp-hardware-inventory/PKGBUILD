@@ -1,0 +1,16 @@
+pkgname="opennms-plugin-provisioning-snmp-hardware-inventory"
+pkgver="18.0.2_1"
+pkgrel=1
+arch=('any')
+source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
+sha512sums=('d5898d1d0e2d91132a99f6f6e13494ffc0130122dfcdc030b81f662378d72591b8a325b2da9fabda36fd3f877d08f058d27c752fb47f1ef3fb03b83779d91e31')
+
+build() {
+  tar -xvf data.tar.xz
+}
+
+package() {
+  JAVALIBDIR="$pkgdir/usr/share/opennms/lib"
+  mkdir -p $JAVALIBDIR
+  install  -m 644 usr/share/java/opennms/*.jar -t $JAVALIBDIR
+}

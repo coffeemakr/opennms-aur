@@ -1,0 +1,13 @@
+pkgname="opennms-remote-poller"
+pkgver="18.0.2_1"
+pkgrel=1
+arch=('any')
+depends=("opennms=${pkgver}")
+source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
+sha512sums=('a1fc7f4f9f4c554723a3185a4a35bb65457e454b3ab673a8a8089f8375f9c427c3f002e9fd5396d81957e47ceabeeb8caf42c4df439dea4ff222d9a065eebf0a')
+
+package() {
+  tar -C $pkgdir -xvf data.tar.xz 
+  mv $pkgdir/usr/sbin $pkgdir/usr/bin
+  rm -r $pkgdir/etc/init.d
+}

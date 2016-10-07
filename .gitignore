@@ -1,5 +1,9 @@
 *~
 */src
 */pkg
+aur/
 jicmp/jicmp*
 jicmp6/jicmp6*
+*.deb
+*.tar.xz
+*.SRCINFO

@@ -1,0 +1,16 @@
+pkgname="opennms-plugin-provisioning-dns"
+pkgver="18.0.2_1"
+pkgrel=1
+arch=('any')
+source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
+sha512sums=('828c11b1794bf38be2e418be66321b47ad439bac0a0fda8c6fe733fe1274b7b5d2979b4341c30b007f86ba6de99689334eff20a7a6bfc798bb204bc983fd4848')
+
+build() {
+  tar -xvf data.tar.xz
+}
+
+package() {
+  JAVALIBDIR="$pkgdir/usr/share/opennms/lib"
+  mkdir -p $JAVALIBDIR
+  install  -m 644 usr/share/java/opennms/*.jar -t $JAVALIBDIR
+}
