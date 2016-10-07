@@ -3,7 +3,7 @@ pkgver="18.0.2_1"
 pkgrel=1
 arch=('any')
 source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
-sha512sums=('d5898d1d0e2d91132a99f6f6e13494ffc0130122dfcdc030b81f662378d72591b8a325b2da9fabda36fd3f877d08f058d27c752fb47f1ef3fb03b83779d91e31')
+sha512sums=('2f3dc9f55f40ca88fe3720fc7593bc990d01351fc27e199f6897634bd15823579ddaf133fa5529fc8d236aab945d82504c612844c9c4f816386e68916a606632')
 
 build() {
   tar -xvf data.tar.xz
@@ -11,6 +11,7 @@ build() {
 
 package() {
   JAVALIBDIR="$pkgdir/usr/share/opennms/lib"
+  tar -C $pkgdir -xvf data.tar.xz ./etc
   mkdir -p $JAVALIBDIR
   install  -m 644 usr/share/java/opennms/*.jar -t $JAVALIBDIR
 }
