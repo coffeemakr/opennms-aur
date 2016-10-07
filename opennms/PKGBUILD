@@ -4,17 +4,17 @@ pkgver="18.0.2_1"
 pkgrel=4
 pkgdesc="something"
 arch=('any')
-url=""
+url="https://www.opennms.org"
 license=('GPL')
 groups=()
 depends=('jre8-openjdk' 'jicmp' 'jicmp6')
 makedepends=('jdk8-openjdk' 'perl')
 optdepends=('opennms-webapp-jetty: Webinterface'
-						'opennms-plugin-provisioning-dns: DNS provisioning'
-						'opennms-plugin-provisioning-rancid: Rancid provisioning'
-						'opennms-plugin-provisioning-snmp-asset: SNMP Asset provisioning'
-						'opennms-plugin-provisioning-snmp-hardware-inventory: SNMP Hardware inventory'
-						'opennms-remote-poller: Remote poller support')
+            'opennms-plugin-provisioning-dns: DNS provisioning'
+            'opennms-plugin-provisioning-rancid: Rancid provisioning'
+            'opennms-plugin-provisioning-snmp-asset: SNMP Asset provisioning'
+            'opennms-plugin-provisioning-snmp-hardware-inventory: SNMP Hardware inventory'
+            'opennms-remote-poller: Remote poller support')
 provides=()
 conflicts=()
 replaces=()
