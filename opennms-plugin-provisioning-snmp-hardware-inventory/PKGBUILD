@@ -2,6 +2,8 @@ pkgname="opennms-plugin-provisioning-snmp-hardware-inventory"
 pkgver="18.0.2_1"
 pkgrel=1
 arch=('any')
+url="https://www.opennms.org"
+license=('GPL')
 source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
 sha512sums=('2f3dc9f55f40ca88fe3720fc7593bc990d01351fc27e199f6897634bd15823579ddaf133fa5529fc8d236aab945d82504c612844c9c4f816386e68916a606632')
 

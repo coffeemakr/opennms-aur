@@ -2,6 +2,8 @@ pkgname="opennms-plugin-provisioning-snmp-asset"
 pkgver="18.0.2_1"
 pkgrel=1
 arch=('any')
+url="https://www.opennms.org"
+license=('GPL')
 source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
 sha512sums=('9216a3afa979f1cc5e8bfae31cfec2cd89b681d51f685b4a1977de1869d9826662c8daa9a56c0cdc3808e1b49d5f0f12f1d5edc434e90f71754ac4675f46badd')
 

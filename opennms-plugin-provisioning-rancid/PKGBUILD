@@ -2,6 +2,8 @@ pkgname="opennms-plugin-provisioning-rancid"
 pkgver="18.0.2_1"
 pkgrel=1
 arch=('any')
+url="https://www.opennms.org"
+license=('GPL')
 source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_${pkgver//_/-}_all.deb")
 sha512sums=('70764fc8510ae421a1f59f2569035b5644c8c766120ab76c44e1d681637ffd4e47e7fb55c6d93c99f518bbcb8b89f8e9b42e287bbc68ab2a07374f3418a7f26c')
 
