@@ -9,7 +9,7 @@ source=("http://debian.opennms.org/dists/opennms-18/main/binary-all/${pkgname}_$
 sha512sums=('a1fc7f4f9f4c554723a3185a4a35bb65457e454b3ab673a8a8089f8375f9c427c3f002e9fd5396d81957e47ceabeeb8caf42c4df439dea4ff222d9a065eebf0a')
 
 package() {
-  tar -C $pkgdir -xvf data.tar.xz 
+  tar -C $pkgdir -xf data.tar.xz 
   mv $pkgdir/usr/sbin $pkgdir/usr/bin
-  rm -r $pkgdir/etc/init.d
+  rm -r $pkgdir/usr/share/doc
 }

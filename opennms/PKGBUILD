@@ -1,7 +1,7 @@
 # Maintainer: Your Name <youremail@domain.com>
 pkgname="opennms"
 pkgver="18.0.2_1"
-pkgrel=4
+pkgrel=5
 pkgdesc="something"
 arch=('any')
 url="https://www.opennms.org"
@@ -86,13 +86,13 @@ sha512sums=('44c01e805d2ff73929c0c06c65fce98ed16fe49354b67fbada22ce989934f7bb65f
 
 
 unpack_deb() {
-	for file in $*; do
-		dir="${file//.deb/}"
-		[ -d "$dir" ] || mkdir "$dir"
-		cd "$dir"
-			ar xf "../$file"
-		cd .. 
-	done
+	dir="${1//.deb/}"
+	[ -e "$dir" ] && rm -r "$dir"
+	mkdir "$dir"
+	cd "$dir"
+		ar xf "../$file"
+	cd .. 
+	echo "$dir"
 }
 
 
@@ -104,28 +104,28 @@ build() {
 install_deb_data() {
 	for file in $*; do
 		echo "Installing files from $file"
-		dir="${file//.deb/}"
-		if [ ! -d "$dir" ]; then
-			unpack_deb "$file"
-		fi
-		data_tar="$(pwd)/$dir/data.tar.xz"
-		tar -C $pkgdir -xf $data_tar
+		dir="$(unpack_deb $file)"
+		tar -C $pkgdir -xf "$dir/data.tar.xz"
 	done
 }
 
 
 package() {
+		
 		install_deb_data *.deb
 		mv $pkgdir/usr/sbin/* $pkgdir/usr/bin/
 		rmdir $pkgdir/usr/sbin
 		#rm -r $pkgdir/etc/init.d
 		find $pkgdir/usr/share/java/opennms -maxdepth 1 -type d -empty -delete
 		(grep -v ^JAVA_HOME /etc/default/opennms || : ; echo "JAVA_HOME='$JAVA_HOME'")
-		mv $pkgdir/usr/share/java/opennms/* $pkgdir/usr/share/opennms/lib/
-		rmdir $pkgdir/usr/share/java/opennms
+		
 
 		mkdir -p $pkgdir/usr/lib/systemd/system
 		mv  $pkgdir/etc/opennms/opennms.service $pkgdir/usr/lib/systemd/system/
+
+		mv $pkgdir/usr/share/opennms/lib/* $pkgdir/usr/share/java/opennms
+		rmdir $pkgdir/usr/share/opennms/lib
+		ln -r -s $pkgdir/usr/share/java/opennms $pkgdir/usr/share/opennms/lib
 		
 #		cat >$pkgdir/usr/lib/systemd/system/opennms.service << EOF
 #		[Unit]
